@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PostsController ;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,11 +18,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/homepage',[PostsController::class,"users"] );
+//View Posts
+Route::get('/homepage',[PostController::class,"users"])->name('homepage.index');
 
-Route::get("/viewpost/{id}",[PostsController::class,"viewpost"] );
+Route::get("/viewpost/{id}",[PostController::class,"viewpost"])->name('viewpost');
 
-Route::get('/addpage',[PostsController::class,"add"] );
+//Add Posts
+Route::get('/addpage',[PostController::class,"add"])->name('addpage');
 
-Route::get('/updatepage/{id}',[PostsController::class,"update"] );
+Route::post('/store',[PostController::class,"store"])->name('storepost');
 
+//Update Posts
+Route::get('/updatepage/{id}',[PostController::class,"update"])->name('updatepage'); //the view page
+
+Route::post('/edit/{id}', [PostController::class, "edit"])->name('edit'); //the actual DB action
+
+//Delete Post
+
+Route::get('/delete/{id}',[PostController::class, "delete"])->name('delete');
